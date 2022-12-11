@@ -1,4 +1,6 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeContact } from '../../redux/store';
 import React from 'react';
 import {
   ContactItem,
@@ -7,7 +9,10 @@ import {
   List,
 } from './ContactList.styled';
 
-export default function ContactList({ contacts, onDelete }) {
+export default function ContactList() {
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+
   return (
     <List>
       {contacts.map(item => {
@@ -16,7 +21,10 @@ export default function ContactList({ contacts, onDelete }) {
           <ContactItem key={id}>
             <ContactItemWrapper>
               {name}: {number}
-              <DeleteBtn type="button" onClick={() => onDelete(id)}>
+              <DeleteBtn
+                type="button"
+                onClick={() => dispatch(removeContact(id))}
+              >
                 Delete
               </DeleteBtn>
             </ContactItemWrapper>
@@ -27,13 +35,13 @@ export default function ContactList({ contacts, onDelete }) {
   );
 }
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-  onDelete: PropTypes.func,
-};
+// ContactList.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     })
+//   ),
+//   onDelete: PropTypes.func,
+// };

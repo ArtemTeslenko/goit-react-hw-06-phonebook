@@ -1,6 +1,11 @@
-import PropTypes from 'prop-types';
-import { useState, useRef, useEffect } from 'react';
-import { nanoid } from 'nanoid';
+// import PropTypes from 'prop-types';
+import { useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { nanoid } from 'nanoid';
+// import { addContact } from 'redux/store';
+import { nanoid } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/store';
 import {
   FormInput,
   Form,
@@ -8,27 +13,30 @@ import {
   AddContactBtn,
 } from './ContactForm.styled';
 
-function ContactForm({ getData }) {
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const nameId = useRef('');
-  const numberId = useRef('');
-
-  useEffect(() => {
-    nameId.current = nanoid();
-    numberId.current = nanoid();
-  }, []);
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    getData(name, number);
+    const id = nanoid();
+
+    if (contacts.find(item => item.name === name)) {
+      alert('The contact is already in your phonebook.');
+      return;
+    }
+
+    dispatch(addContact({ id, name, number }));
+
     setName('');
     setNumber('');
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormLabel htmlFor={nameId.current}>Name</FormLabel>
+      <FormLabel>Name</FormLabel>
       <FormInput
         type="text"
         name="name"
@@ -37,9 +45,8 @@ function ContactForm({ getData }) {
         required
         value={name}
         onChange={e => setName(e.target.value)}
-        id={nameId.current}
       />
-      <FormLabel htmlFor={numberId.current}>Number</FormLabel>
+      <FormLabel />
       <FormInput
         type="tel"
         name="number"
@@ -48,7 +55,6 @@ function ContactForm({ getData }) {
         required
         value={number}
         onChange={e => setNumber(e.target.value)}
-        id={numberId.current}
       />
       <AddContactBtn type="submit">Add contact</AddContactBtn>
     </Form>
@@ -57,6 +63,6 @@ function ContactForm({ getData }) {
 
 export default ContactForm;
 
-ContactForm.propTypes = {
-  getData: PropTypes.func,
-};
+// ContactForm.propTypes = {
+//   getData: PropTypes.func,
+// };
