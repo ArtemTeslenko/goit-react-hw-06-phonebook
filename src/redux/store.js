@@ -1,13 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
-// const initialState = {
-//   contacts: [],
-//   filter: '',
-// };
-
 export const addContact = createAction('contacts/addContacts');
 export const removeContact = createAction('contacts/removeContacts');
+export const filterContacts = createAction('filter/filterContacts');
 
 const contactsReducer = createReducer(
   [
@@ -30,8 +26,13 @@ const contactsReducer = createReducer(
   }
 );
 
+const filterReducer = createReducer('', {
+  [filterContacts]: (state, action) => (state = action.payload),
+});
+
 export const store = configureStore({
   reducer: {
     contacts: contactsReducer,
+    filter: filterReducer,
   },
 });

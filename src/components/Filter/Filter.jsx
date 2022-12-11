@@ -1,24 +1,23 @@
-// import PropTypes from 'prop-types';
-// import { nanoid } from 'nanoid';
-// import { useRef, useEffect } from 'react';
 import {
   FormLabel,
   FormInput,
 } from 'components/ContactForm/ContactForm.styled';
+import { useDispatch } from 'react-redux';
+import { filterContacts } from 'redux/store';
 import { Wrapper } from './Filter.styled';
 
 function Filter() {
+  const dispatch = useDispatch();
+
   return (
     <Wrapper>
       <FormLabel>Find contats by name</FormLabel>
-      <FormInput name="filter" />
+      <FormInput
+        name="filter"
+        onChange={e => dispatch(filterContacts(e.target.value.toLowerCase()))}
+      />
     </Wrapper>
   );
 }
 
 export default Filter;
-
-// Filter.propTypes = {
-//   value: PropTypes.string.isRequired,
-//   changeFilter: PropTypes.func,
-// };

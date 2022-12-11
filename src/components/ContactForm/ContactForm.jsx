@@ -1,11 +1,7 @@
-// import PropTypes from 'prop-types';
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { nanoid } from 'nanoid';
-// import { addContact } from 'redux/store';
-import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/store';
+import { nanoid } from '@reduxjs/toolkit';
 import {
   FormInput,
   Form,
@@ -62,7 +58,3 @@ function ContactForm() {
 }
 
 export default ContactForm;
-
-// ContactForm.propTypes = {
-//   getData: PropTypes.func,
-// };
