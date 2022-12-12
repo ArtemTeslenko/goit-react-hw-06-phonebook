@@ -9,7 +9,7 @@ import {
 } from './ContactList.styled';
 
 export default function ContactList() {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.items);
   const filteredValue = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ export default function ContactList() {
       {contacts.length > 0
         ? contacts
             .filter(item => item.name.toLowerCase().includes(filteredValue))
-            .map(item => {
+            .map((item, idx) => {
               const { id, name, number } = item;
               return (
                 <ContactItem key={id}>
@@ -26,7 +26,8 @@ export default function ContactList() {
                     {name}: {number}
                     <DeleteBtn
                       type="button"
-                      onClick={() => dispatch(removeContact(id))}
+                      // onClick={() => dispatch(removeContact(id))}
+                      onClick={() => dispatch(removeContact(idx))}
                     >
                       Delete
                     </DeleteBtn>
