@@ -15,24 +15,26 @@ export default function ContactList() {
 
   return (
     <List>
-      {contacts
-        .filter(item => item.name.toLowerCase().includes(filteredValue))
-        .map(item => {
-          const { id, name, number } = item;
-          return (
-            <ContactItem key={id}>
-              <ContactItemWrapper>
-                {name}: {number}
-                <DeleteBtn
-                  type="button"
-                  onClick={() => dispatch(removeContact(id))}
-                >
-                  Delete
-                </DeleteBtn>
-              </ContactItemWrapper>
-            </ContactItem>
-          );
-        })}
+      {contacts.length > 0
+        ? contacts
+            .filter(item => item.name.toLowerCase().includes(filteredValue))
+            .map(item => {
+              const { id, name, number } = item;
+              return (
+                <ContactItem key={id}>
+                  <ContactItemWrapper>
+                    {name}: {number}
+                    <DeleteBtn
+                      type="button"
+                      onClick={() => dispatch(removeContact(id))}
+                    >
+                      Delete
+                    </DeleteBtn>
+                  </ContactItemWrapper>
+                </ContactItem>
+              );
+            })
+        : null}
     </List>
   );
 }

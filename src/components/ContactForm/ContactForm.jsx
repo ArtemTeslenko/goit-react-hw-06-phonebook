@@ -19,7 +19,7 @@ function ContactForm() {
     e.preventDefault();
     const id = nanoid();
 
-    if (contacts.find(item => item.name === name)) {
+    if (contacts.length > 0 && contacts.find(item => item.name === name)) {
       alert('The contact is already in your phonebook.');
       return;
     }
