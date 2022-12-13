@@ -3,7 +3,7 @@ import {
   FormInput,
 } from 'components/ContactForm/ContactForm.styled';
 import { useDispatch } from 'react-redux';
-import { filterContacts } from 'redux/store';
+import { filterContacts } from 'redux/filterSlice';
 import { Wrapper } from './Filter.styled';
 
 function Filter() {
