@@ -21,6 +21,8 @@ function ContactForm() {
 
     if (contacts.length > 0 && contacts.find(item => item.name === name)) {
       alert('The contact is already in your phonebook.');
+      setName('');
+      setNumber('');
       return;
     }
 
